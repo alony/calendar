@@ -1,0 +1,4 @@
+#calendar
+  -if current_user
+    =render :partial => "calendar", :locals => {:events => @events, :date => @date}
+        

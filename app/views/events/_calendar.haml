@@ -1,0 +1,32 @@
+%table.calendar
+  %tr
+    -Date::DAYNAMES.each do |day|
+      %th= day
+  %tr 
+    -Date::DAYNAMES.each_with_index do |day, i|
+      -break if date.beginning_of_month.wday == i   
+      %td
+    -date.beginning_of_month.upto date.end_of_month do |day|
+      -if day.wday.zero? 
+        %tr
+      -event = events.detect{|event| day == event.event_dt.to_date} 
+      -if event.blank?
+        %td{:id => day.strftime('%m_%d_%Y')}
+          =link_to day.mday, new_event_path, :class => 'event_link'
+          %input.hidden{:name => "dt", :value => day}
+      -else       
+        %td{:id => day.strftime('%m_%d_%Y'), :class => event.users.include?(current_user) ? "user event" : "event"}
+          =link_to day.mday, edit_event_path(event), :class => 'event_link'
+          %input.hidden{:name => "dt", :value => day}
+.month
+  %div
+    =link_to "Before", events_path, :class => "event_link"
+    %input.hidden{:name => :date, :value => (date << 1)}
+  =date.strftime('%B %Y') 
+  %div 
+    =link_to "After", events_path, :class => "event_link"  
+    %input.hidden{:name => :date, :value => (date >> 1)}
+  
+#event_dialog.event_dialog.hidden
+  
+  

@@ -1,0 +1,8 @@
+-semantic_form_for @event || Event.new do |f|
+  -f.inputs do
+    =f.input :title
+    =f.input :description, :required => false
+    =f.input :event_dt, :label => "Date/time"
+    =f.input :users, :label => "Invite", :collection => (@event.try(:invite) || User.exclude(current_user)), :label_method => :full_name, :required => false 
+  -f.buttons do
+    =f.commit_button

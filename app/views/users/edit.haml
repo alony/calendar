@@ -1,0 +1,6 @@
+-semantic_form_for @user do |user_form|
+  =user_form.inputs :name, :email, :birthday
+  -user_form.buttons do
+    =user_form.commit_button
+%p
+  = link_to "View All", users_path

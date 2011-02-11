@@ -1,0 +1,4 @@
+$("#calendar").html("<%= escape_javascript(render :partial => "calendar", :locals => {:events => @events, :date => @date}) %>");
+$("form.event").submitWithAjax(); 
+EventDialog.init();
+ 

@@ -1,0 +1,2 @@
+$('.event_dialog').dialog('close');
+$('td#<%= @event.event_dt.strftime('%m_%d_%Y')-%>').addClass("user event").find("a").attr("href", "<%=edit_event_path(@event)-%>");

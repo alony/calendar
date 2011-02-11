@@ -1,0 +1,29 @@
+!!! Strict
+%html
+  %head
+    %title Calendar #{"| " + current_user.full_name if current_user }
+    = stylesheet_link_tag 'style', 'formtastic', 'jquery-ui-1.7.2.custom'
+    = javascript_include_tag 'jquery-1.4.1.min', 'jquery-ui-1.7.2.custom.min', 'application'
+  %body
+    #container
+      #curr_user
+        Current user:
+        %b= current_user.try(:email) || "none"
+        -if current_user
+          |
+          = link_to 'Log out', logout_path
+          |
+          = link_to 'Edit', edit_user_path(current_user)
+          |
+          = link_to 'Delete', {:controller => :users, :action => :destroy, :id => current_user}, :confirm => "Are you sure?", :method => :delete
+        -else
+          |
+          = link_to 'Log in', login_path
+          |
+          = link_to 'Register', new_user_path
+      %hr
+      - flash.each do |name, msg|
+        = content_tag :div, msg, :id => "flash_#{name}"
+      
+      = yield
+
